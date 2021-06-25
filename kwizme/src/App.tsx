@@ -49,7 +49,7 @@ function App() {
   const checkAnswer = (e : React.MouseEvent<HTMLButtonElement>) =>{
       if(!gameOver){
         const answer = e.currentTarget.value
-        const correct = questions[questionNum].correct_answer  == answer;
+        const correct = questions[questionNum].correct_answer === answer;
 
         if(correct) setScore(prev => prev + 1)
         const answerObj = {
@@ -66,7 +66,7 @@ function App() {
 
   const nextQuestion = ()=>{
       const nextQuestion = questionNum + 1;
-      if(nextQuestion == TOTAL_QUESTION){
+      if(nextQuestion === TOTAL_QUESTION){
         setGameOver(true);
       }else{
         setQuestionNum(nextQuestion);
@@ -78,7 +78,7 @@ function App() {
     <AppWrapper>
     <div className="App">
       <h1>KWIZME!</h1>
-      {gameOver || userAnswers.length == TOTAL_QUESTION ?(
+      {gameOver || userAnswers.length === TOTAL_QUESTION ?(
         <button className="start" onClick={startTrivia}>
           Start
         </button>
@@ -97,7 +97,7 @@ function App() {
           />
       )}
       
-      {!gameOver && !loading && userAnswers.length === questionNum + 1 && questionNum != TOTAL_QUESTION - 1  ? (
+      {!gameOver && !loading && userAnswers.length === questionNum + 1 && questionNum !== TOTAL_QUESTION - 1  ? (
           <button className="next" onClick={nextQuestion}>Next Question</button>
       ):null}
       
