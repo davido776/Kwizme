@@ -1,3 +1,5 @@
+import {shuffleOptions} from  "./utils";
+
 
 export type Question = {
     category: string,
@@ -14,17 +16,16 @@ export enum Difficulty {
 }
 
 export type QuestionState = Question & {
-    answers : string[]
+    options : string[]
 }
 export const fetchQuestions = async (amount:number, difficulty:Difficulty)=>{
    const url = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}&type=multiple`;
    const data = await (await fetch(url)).json();
-   console.log(data);
-   return data.results.map((question:Question)=>{
+   return data.results.map((question:Question)=>(
        {
            ...question,
-           answer: 
+           options: shuffleOptions([...question.incorrect_answers,question.correct_answer])
        }
-   })
+   ))
 
 }
